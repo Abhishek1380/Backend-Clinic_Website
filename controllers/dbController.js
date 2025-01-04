@@ -1,6 +1,7 @@
 const mongodb = require('mongodb');
 const { MongoClient } = require('mongodb');
-const url = "mongodb://127.0.0.1:27017/5000";
+const url = "mongodb+srv://Clinic_Website:2laSM6luo4rWF3Yq@atlascluster.0jb1kvd.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster";
+
 
 
 const client = new MongoClient(url);
