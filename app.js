@@ -14,12 +14,19 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send("Hello from pussy");
+    res.send("Hello from Clinic Website");
 });
 
 app.get('/treatments', async (req, res) => {
     let query = {};
     const colName = "treatments";
+    let output = await getData(colName, query);
+    res.send(output);
+})
+
+app.get('/blogs', async (req, res) => {
+    let query = {};
+    const colName = "blogs";
     let output = await getData(colName, query);
     res.send(output);
 })
@@ -61,7 +68,7 @@ app.get('/blogs/:id', async (req, res) => {
     let collection = "sample";
     let output = await getData(collection, query);
     res.send(output);
-    console.log(output);
+
 });
 
 
