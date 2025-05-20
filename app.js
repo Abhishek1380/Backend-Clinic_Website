@@ -61,6 +61,30 @@ app.get('/treatments/:id', async (req, res) => {
     console.log(output);
 });
 
+app.get('/blog/:slug', async (req, res) => {
+    const slug = req.params.slug;
+    try {
+        const blog = await Blog.findOne({ slug: slug }); 
+        if (blog) {
+            res.json(blog);
+        } else {
+            res.status(404).json({ message: "Blog not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+
+app.get('/blog/:id', async (req, res) => {
+    let treatmentId = Number(req.params.id);
+    let query = { t_id: treatmentId };
+    let collection = "treatments";
+    let output = await getData(collection, query);
+    res.send(output);
+    console.log(output);
+});
+
 app.get('/blog', async (req, res) => {
     let query = {};
     const colName = "sample";
