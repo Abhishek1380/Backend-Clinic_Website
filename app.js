@@ -64,7 +64,7 @@ app.get('/treatments/:id', async (req, res) => {
 app.get('/blog/:slug', async (req, res) => {
     const slug = req.params.slug;
     const query = { slug: slug };
-    const collection = "blog"; // same as your collection name in MongoDB
+    const collection = "Blog"; // same as your collection name in MongoDB
 
     try {
         const output = await getData(collection, query);
