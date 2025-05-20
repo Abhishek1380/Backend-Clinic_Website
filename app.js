@@ -31,6 +31,12 @@ app.get('/blogs', async (req, res) => {
     res.send(output);
 })
 
+app.get('/blog', async (req, res) => {
+    let query = {};
+    const colName = "blog";
+    let output = await getData(colName, query);
+    res.send(output);
+})
 app.get('/reviews', async (req, res) => {
     let query = {};
     const colName = "reviews";
