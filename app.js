@@ -63,21 +63,23 @@ app.get('/treatments/:id', async (req, res) => {
 
 app.get('/blog/:slug', async (req, res) => {
     const slug = req.params.slug;
+    const query = { slug: slug };
+    const collection = "blogs"; // same as your collection name in MongoDB
 
     try {
-        const blog = await Blog.findOne({ slug: slug });
+        const output = await getData(collection, query);
 
-        if (blog) {
-            res.json(blog);
+        if (output.length > 0) {
+            res.json(output[0]); // return the first matching blog
         } else {
             res.status(404).json({ message: "Blog not found" });
         }
-
     } catch (error) {
-        console.error("Error fetching blog by slug:", error); // This will help!
+        console.error("Error fetching blog by slug:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
 
 
 app.get('/blog', async (req, res) => {
