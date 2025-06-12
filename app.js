@@ -99,19 +99,27 @@ app.get('/blogs/:id', async (req, res) => {
 });
 
 
-// Alternative route for above route
 
-// app.get('/treatment/:id', async (req, res) => {
-//     const treatmentId = Number(req.params.id); 
-//     const query = { treatmentId: treatmentId }; 
-//     const collection = "treatments"; 
-//     try {
-//         const treatmentDetails = await getData(collection, query); 
-//         res.send(treatmentDetails); 
-//     } catch (error) {
-//         res.status(500).send({ message: "Error fetching treatment details", error });
-//     }
-// });
+app.get('/service/:title', async (req, res) => {
+    const titleParam = req.params.title;
+
+    try {
+
+        const output = await getData("service_detail", {
+            title: { $regex: new RegExp(`^${titleParam}$`, 'i') }
+        });
+
+        if (output.length > 0) {
+            res.json(output[0]);
+        } else {
+            res.status(404).json({ message: "Service not found" });
+        }
+    } catch (err) {
+        console.error("Error fetching service by title:", err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 
 app.listen(port, async () => {
