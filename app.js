@@ -100,25 +100,23 @@ app.get('/blogs/:id', async (req, res) => {
 
 
 
-app.get('/service/:title', async (req, res) => {
-    const titleParam = req.params.title;
-
+app.get('/service/:slug', async (req, res) => {
     try {
-
-        const output = await getData("service_detail", {
-            title: { $regex: new RegExp(`^${titleParam}$`, 'i') }
+        const service = await getData("service_detail", {
+            slug: req.params.slug.toLowerCase()
         });
 
-        if (output.length > 0) {
-            res.json(output[0]);
+        if (service.length > 0) {
+            res.json(service[0]);
         } else {
             res.status(404).json({ message: "Service not found" });
         }
     } catch (err) {
-        console.error("Error fetching service by title:", err);
+        console.error("Error fetching service by slug:", err);
         res.status(500).json({ message: "Server error" });
     }
 });
+
 
 
 
